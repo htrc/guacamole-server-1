@@ -82,6 +82,11 @@ RUN apt-get update                                              && \
 # Add configuration scripts
 COPY src/guacd-docker/bin "${PREFIX_DIR}/bin/"
 
+# Add SSL certificates and start script to run with SSL certificates
+ # Please add SSL certificate and key into docker-config/guacd directory
+
+RUN mkdir -p /etc/opt/guacd
+
 # Copy source to container for sake of build
 COPY . "$BUILD_DIR"
 
