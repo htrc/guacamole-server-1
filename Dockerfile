@@ -82,10 +82,6 @@ RUN apt-get update                                              && \
 # Add configuration scripts
 COPY src/guacd-docker/bin "${PREFIX_DIR}/bin/"
 
-# Add SSL certificates and start script to run with SSL certificates
- # Please add SSL certificate and key into docker-config/guacd directory
-
-RUN mkdir -p /etc/opt/guacd
 
 # Copy source to container for sake of build
 COPY . "$BUILD_DIR"
@@ -163,6 +159,12 @@ ARG UID=1000
 ARG GID=1000
 RUN groupadd --gid $GID guacd
 RUN useradd --system --create-home --shell /usr/sbin/nologin --uid $UID --gid $GID guacd
+
+# Add SSL certificates and start script to run with SSL certificates
+ # Please add SSL certificate and key into docker-config/guacd directory
+
+RUN mkdir -p /etc/opt/guacd
+RUN chown -R guacd:guacd /etc/opt/guacd
 
 # Run with user guacd
 USER guacd
